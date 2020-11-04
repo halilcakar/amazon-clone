@@ -67,7 +67,18 @@ const reducer = (state: State, action: Action) => {
         ...state,
         basket: [...state.basket, action.item],
       };
-
+    case 'REMOVE_FROM_BASKET':
+      const index = state.basket.findIndex(
+        (item) => item.id === action.item.id
+      );
+      let newBasket = [...state.basket];
+      if (index > -1) {
+        newBasket.splice(index, 1);
+      }
+      return {
+        ...state,
+        basket: newBasket,
+      };
     default:
       return state;
   }

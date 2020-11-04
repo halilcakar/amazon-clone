@@ -12,13 +12,7 @@ const Product: FunctionComponent<ProductProps> = (props) => {
   const addToBasket = () => {
     dispatch({
       type: 'ADD_TO_BASKET',
-      item: {
-        id,
-        title,
-        image,
-        price,
-        rating,
-      },
+      item: { ...props },
     });
   };
 
