@@ -28,8 +28,12 @@ const Header = () => {
       </div>
 
       <div className="header__nav">
-        <HeaderOption one="Hello Guest" two="Sign In" />
+        <Link to="/login">
+          <HeaderOption one="Hello Guest" two="Sign In" />
+        </Link>
+
         <HeaderOption one="Returns" two="& Orders" />
+
         <HeaderOption one="Your" two="Prime" />
 
         <Link to="/checkout">
