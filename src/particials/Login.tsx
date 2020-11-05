@@ -1,9 +1,12 @@
 import './Login.css';
 
 import React, { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
+import { auth } from '../config/firebase';
 
 const Login = () => {
+  const history = useHistory();
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -18,10 +21,28 @@ const Login = () => {
 
   const signIn = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    auth
+      .signInWithEmailAndPassword(form.email, form.password)
+      .then((auth) => {
+        if (auth) {
+          history.push('/');
+        }
+      })
+      .catch(({ message }) => console.error(message));
   };
 
   const register = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    auth
+      .createUserWithEmailAndPassword(form.email, form.password)
+      .then((auth) => {
+        if (auth) {
+          history.push('/');
+        }
+      })
+      .catch(({ message }) => console.error(message));
   };
 
   return (
