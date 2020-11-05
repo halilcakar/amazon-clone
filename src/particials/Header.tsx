@@ -7,10 +7,17 @@ import SearhIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 import HeaderOption from '../components/HeaderOption';
+import { auth } from '../config/firebase';
 import { useStateValue } from '../StateProvider';
 
 const Header = () => {
-  const [{ basket }] = useStateValue();
+  const [{ basket, user }] = useStateValue();
+
+  const handleAuth = () => {
+    if (user) {
+      auth.signOut();
+    }
+  };
 
   return (
     <div className="header">
@@ -28,8 +35,18 @@ const Header = () => {
       </div>
 
       <div className="header__nav">
-        <Link to="/login">
-          <HeaderOption one="Hello Guest" two="Sign In" />
+        {/* 
+          I couldn't do it as to={!user && '/login'} 
+          because typesciprt gave me an error
+          thats boolean is not assignable to type ...
+         */}
+        <Link to={!user ? '/login' : ''}>
+          <div onClick={handleAuth}>
+            <HeaderOption
+              one={`Hello ${user?.email.split('@')[0] || 'Guest'}`}
+              two={user ? 'Sign out' : 'Sign In'}
+            />
+          </div>
         </Link>
 
         <HeaderOption one="Returns" two="& Orders" />

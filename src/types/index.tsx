@@ -6,5 +6,9 @@ export type ProductProps = {
   rating: number;
 };
 
-export type State = { basket: ProductProps[]; products: Array<ProductProps[]> };
+export type State = {
+  basket: ProductProps[];
+  products: Array<ProductProps[]>;
+  user: any;
+};
 export type Action = { type: string; item: ProductProps };
