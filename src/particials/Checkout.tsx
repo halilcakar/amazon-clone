@@ -8,7 +8,7 @@ import { useStateValue } from '../StateProvider';
 import { ProductProps } from '../types';
 
 const Checkout = () => {
-  const [{ basket }] = useStateValue();
+  const [{ basket, user }] = useStateValue();
   return (
     <div className="checkout">
       <div className="checkout__left">
@@ -18,6 +18,7 @@ const Checkout = () => {
           alt="Banner"
         />
         <div>
+          <h3>Hello, {user?.email || 'Guest'}</h3>
           <h2 className="checkout__title">Your shopping Basket</h2>
 
           {basket.map((item: ProductProps, index: number) => (
